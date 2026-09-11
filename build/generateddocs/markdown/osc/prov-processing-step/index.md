@@ -33,6 +33,7 @@ Technologies, Workflow Profiler).
 ## Examples
 
 ### Ingest of mandal-level vegetation and soil moisture
+Retrieval of source observations into the workflow. Ingest is where external provenance ends and workflow provenance begins: the generated entity is the first thing downstream steps can cite.
 #### json
 ```json
 {
@@ -104,6 +105,7 @@ Technologies, Workflow Profiler).
 
 
 ### Normalisation of vegetation index to a condition index
+Rescaling an observed index against its own historical extremes. The reference extrema are inputs rather than inline constants, so the period they were derived from is recoverable from the provenance.
 #### json
 ```json
 {
@@ -173,11 +175,11 @@ Technologies, Workflow Profiler).
     dct:type <https://example.org/ospd/process-types/index-normalisation> ;
     prov:generated <urn:aganitha:dataset:vci> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:reference:ndvi-extrema> ;
-            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ],
-        [ a prov:Usage ;
             prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;
-            prov:hadRole <https://example.org/ospd/roles/observedIndex> ] ;
+            prov:hadRole <https://example.org/ospd/roles/observedIndex> ],
+        [ a prov:Usage ;
+            prov:entity <urn:aganitha:reference:ndvi-extrema> ;
+            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ] ;
     prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,
         <urn:aganitha:reference:ndvi-extrema> .
 
@@ -186,6 +188,7 @@ Technologies, Workflow Profiler).
 
 
 ### Normalisation of soil moisture to a deficit index
+The companion to the vegetation index step, and the piece that closes the gap in the chain: without it, the combined index consumes an entity no recorded activity produced, so a consumer walking the provenance backwards hits a dead end.
 #### json
 ```json
 {
@@ -255,11 +258,11 @@ Technologies, Workflow Profiler).
     dct:type <https://example.org/ospd/process-types/index-normalisation> ;
     prov:generated <urn:aganitha:dataset:smdi> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:reference:soil-moisture-extrema> ;
-            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ],
-        [ a prov:Usage ;
             prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;
-            prov:hadRole <https://example.org/ospd/roles/observedIndex> ] ;
+            prov:hadRole <https://example.org/ospd/roles/observedIndex> ],
+        [ a prov:Usage ;
+            prov:entity <urn:aganitha:reference:soil-moisture-extrema> ;
+            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ] ;
     prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,
         <urn:aganitha:reference:soil-moisture-extrema> .
 
@@ -268,6 +271,7 @@ Technologies, Workflow Profiler).
 
 
 ### Weighted composition of a combined drought index
+Combination of two condition indices under fixed weights. Both inputs share the same role, and the weights are step parameters rather than properties of the process type — a case that bears directly on how finely process types should be registered.
 #### json
 ```json
 {
@@ -359,6 +363,7 @@ Technologies, Workflow Profiler).
 
 
 ### Classification into drought severity classes
+Assignment of continuous index values to discrete classes. The class scheme is an input entity, so the thresholds applied are recoverable from the provenance without reading the code.
 #### json
 ```json
 {
@@ -439,11 +444,11 @@ Technologies, Workflow Profiler).
     dct:type <https://example.org/ospd/process-types/classification> ;
     prov:generated <urn:aganitha:dataset:drought-classes> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:dataset:cdsi> ;
-            prov:hadRole <https://example.org/ospd/roles/inputField> ],
-        [ a prov:Usage ;
             prov:entity <urn:aganitha:scheme:drought-severity-classes> ;
-            prov:hadRole <https://example.org/ospd/roles/classificationScheme> ] ;
+            prov:hadRole <https://example.org/ospd/roles/classificationScheme> ],
+        [ a prov:Usage ;
+            prov:entity <urn:aganitha:dataset:cdsi> ;
+            prov:hadRole <https://example.org/ospd/roles/inputField> ] ;
     prov:used <urn:aganitha:dataset:cdsi>,
         <urn:aganitha:scheme:drought-severity-classes> .
 
@@ -452,6 +457,7 @@ Technologies, Workflow Profiler).
 
 
 ### Standardised precipitation index over an accumulation window
+Derivation of a standardised index from an accumulated series against a fitted reference period. Two entities of the same kind distinguished only by role — the case where entity references alone would be ambiguous and qualifiedUsage does real work.
 #### json
 ```json
 {
@@ -534,6 +540,8 @@ Technologies, Workflow Profiler).
 
 
 ### Model training as a processing step
+Training a predictive model, expressed as an ordinary processing activity. The generated entity is a fitted model rather than a data product, and the fold assignment is an input entity so the spatial cross-validation design is recoverable from the provenance.
+This is the case the profile is least obviously shaped for, and the reason it is included: if a trained model cannot be expressed as an entity generated by an activity, the profile cannot describe machine learning workflows at all.
 #### json
 ```json
 {
@@ -632,8 +640,8 @@ Technologies, Workflow Profiler).
     prov:generated <urn:aganitha:model:drought-classifier>,
         <urn:aganitha:report:validation-metrics> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:dataset:cdsi> ;
-            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],
+            prov:entity <urn:aganitha:dataset:drought-classes> ;
+            prov:hadRole <https://example.org/ospd/roles/trainingTarget> ],
         [ a prov:Usage ;
             prov:entity <urn:aganitha:dataset:spi> ;
             prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],
@@ -641,8 +649,8 @@ Technologies, Workflow Profiler).
             prov:entity <urn:aganitha:partition:district-folds> ;
             prov:hadRole <https://example.org/ospd/roles/validationPartition> ],
         [ a prov:Usage ;
-            prov:entity <urn:aganitha:dataset:drought-classes> ;
-            prov:hadRole <https://example.org/ospd/roles/trainingTarget> ] ;
+            prov:entity <urn:aganitha:dataset:cdsi> ;
+            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ] ;
     prov:used <urn:aganitha:dataset:cdsi>,
         <urn:aganitha:dataset:drought-classes>,
         <urn:aganitha:dataset:spi>,
@@ -653,6 +661,7 @@ Technologies, Workflow Profiler).
 
 
 ### Inference using a trained model
+Applying a fitted model to produce a projection. The same model entity that was generated by training is here consumed as an input — the round trip that makes model provenance chainable, and something no purely data-oriented profile has to handle.
 #### json
 ```json
 {
@@ -722,11 +731,11 @@ Technologies, Workflow Profiler).
     dct:type <https://example.org/ospd/process-types/model-inference> ;
     prov:generated <urn:aganitha:dataset:drought-projection> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:model:drought-classifier> ;
-            prov:hadRole <https://example.org/ospd/roles/fittedModel> ],
-        [ a prov:Usage ;
             prov:entity <urn:aganitha:dataset:cdsi> ;
-            prov:hadRole <https://example.org/ospd/roles/inferenceInput> ] ;
+            prov:hadRole <https://example.org/ospd/roles/inferenceInput> ],
+        [ a prov:Usage ;
+            prov:entity <urn:aganitha:model:drought-classifier> ;
+            prov:hadRole <https://example.org/ospd/roles/fittedModel> ] ;
     prov:used <urn:aganitha:dataset:cdsi>,
         <urn:aganitha:model:drought-classifier> .
 
@@ -735,6 +744,7 @@ Technologies, Workflow Profiler).
 
 
 ### Minimal conforming step
+The smallest document that satisfies this profile.
 #### json
 ```json
 {

@@ -40,7 +40,7 @@
   "examples": [
     {
       "title": "Ingest of mandal-level vegetation and soil moisture",
-      "description": "Retrieval of source observations into the workflow. Ingest is where external provenance ends and workflow provenance begins: the generated entity is the first thing downstream steps can cite.",
+      "content": "Retrieval of source observations into the workflow. Ingest is where external provenance ends and workflow provenance begins: the generated entity is the first thing downstream steps can cite.",
       "snippets": [
         {
           "language": "json",
@@ -64,7 +64,7 @@
     },
     {
       "title": "Normalisation of vegetation index to a condition index",
-      "description": "Rescaling an observed index against its own historical extremes. The reference extrema are inputs rather than inline constants, so the period they were derived from is recoverable from the provenance.",
+      "content": "Rescaling an observed index against its own historical extremes. The reference extrema are inputs rather than inline constants, so the period they were derived from is recoverable from the provenance.",
       "snippets": [
         {
           "language": "json",
@@ -82,13 +82,13 @@
           "language": "ttl",
           "url": "https://nsnarayanam.github.io/bblocks-openscience/build/tests/osc/prov-processing-step/example_2_1.ttl",
           "sizeBytes": 862,
-          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:vci:20260807T061000Z> a prov:Activity ;\n    rdfs:label \"Compute vegetation condition index from NDVI\" ;\n    dct:type <https://example.org/ospd/process-types/index-normalisation> ;\n    prov:generated <urn:aganitha:dataset:vci> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:reference:ndvi-extrema> ;\n            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;\n            prov:hadRole <https://example.org/ospd/roles/observedIndex> ] ;\n    prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,\n        <urn:aganitha:reference:ndvi-extrema> .\n\n"
+          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:vci:20260807T061000Z> a prov:Activity ;\n    rdfs:label \"Compute vegetation condition index from NDVI\" ;\n    dct:type <https://example.org/ospd/process-types/index-normalisation> ;\n    prov:generated <urn:aganitha:dataset:vci> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;\n            prov:hadRole <https://example.org/ospd/roles/observedIndex> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:reference:ndvi-extrema> ;\n            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ] ;\n    prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,\n        <urn:aganitha:reference:ndvi-extrema> .\n\n"
         }
       ]
     },
     {
       "title": "Normalisation of soil moisture to a deficit index",
-      "description": "The companion to the vegetation index step, and the piece that closes the gap in the chain: without it, the combined index consumes an entity no recorded activity produced, so a consumer walking the provenance backwards hits a dead end.",
+      "content": "The companion to the vegetation index step, and the piece that closes the gap in the chain: without it, the combined index consumes an entity no recorded activity produced, so a consumer walking the provenance backwards hits a dead end.",
       "snippets": [
         {
           "language": "json",
@@ -106,13 +106,13 @@
           "language": "ttl",
           "url": "https://nsnarayanam.github.io/bblocks-openscience/build/tests/osc/prov-processing-step/example_3_1.ttl",
           "sizeBytes": 873,
-          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:smdi:20260807T061500Z> a prov:Activity ;\n    rdfs:label \"Compute soil moisture deficit index\" ;\n    dct:type <https://example.org/ospd/process-types/index-normalisation> ;\n    prov:generated <urn:aganitha:dataset:smdi> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:reference:soil-moisture-extrema> ;\n            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;\n            prov:hadRole <https://example.org/ospd/roles/observedIndex> ] ;\n    prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,\n        <urn:aganitha:reference:soil-moisture-extrema> .\n\n"
+          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:smdi:20260807T061500Z> a prov:Activity ;\n    rdfs:label \"Compute soil moisture deficit index\" ;\n    dct:type <https://example.org/ospd/process-types/index-normalisation> ;\n    prov:generated <urn:aganitha:dataset:smdi> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:mandal-ndvi-sm-merged> ;\n            prov:hadRole <https://example.org/ospd/roles/observedIndex> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:reference:soil-moisture-extrema> ;\n            prov:hadRole <https://example.org/ospd/roles/normalisationReference> ] ;\n    prov:used <urn:aganitha:dataset:mandal-ndvi-sm-merged>,\n        <urn:aganitha:reference:soil-moisture-extrema> .\n\n"
         }
       ]
     },
     {
       "title": "Weighted composition of a combined drought index",
-      "description": "Combination of two condition indices under fixed weights. Both inputs share the same role, and the weights are step parameters rather than properties of the process type \u2014 a case that bears directly on how finely process types should be registered.",
+      "content": "Combination of two condition indices under fixed weights. Both inputs share the same role, and the weights are step parameters rather than properties of the process type \u2014 a case that bears directly on how finely process types should be registered.",
       "snippets": [
         {
           "language": "json",
@@ -136,7 +136,7 @@
     },
     {
       "title": "Classification into drought severity classes",
-      "description": "Assignment of continuous index values to discrete classes. The class scheme is an input entity, so the thresholds applied are recoverable from the provenance without reading the code.",
+      "content": "Assignment of continuous index values to discrete classes. The class scheme is an input entity, so the thresholds applied are recoverable from the provenance without reading the code.",
       "snippets": [
         {
           "language": "json",
@@ -154,13 +154,13 @@
           "language": "ttl",
           "url": "https://nsnarayanam.github.io/bblocks-openscience/build/tests/osc/prov-processing-step/example_5_1.ttl",
           "sizeBytes": 834,
-          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:classify:20260807T063000Z> a prov:Activity ;\n    rdfs:label \"Classify drought severity\" ;\n    dct:type <https://example.org/ospd/process-types/classification> ;\n    prov:generated <urn:aganitha:dataset:drought-classes> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/inputField> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:scheme:drought-severity-classes> ;\n            prov:hadRole <https://example.org/ospd/roles/classificationScheme> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:scheme:drought-severity-classes> .\n\n"
+          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:classify:20260807T063000Z> a prov:Activity ;\n    rdfs:label \"Classify drought severity\" ;\n    dct:type <https://example.org/ospd/process-types/classification> ;\n    prov:generated <urn:aganitha:dataset:drought-classes> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:scheme:drought-severity-classes> ;\n            prov:hadRole <https://example.org/ospd/roles/classificationScheme> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/inputField> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:scheme:drought-severity-classes> .\n\n"
         }
       ]
     },
     {
       "title": "Standardised precipitation index over an accumulation window",
-      "description": "Derivation of a standardised index from an accumulated series against a fitted reference period. Two entities of the same kind distinguished only by role \u2014 the case where entity references alone would be ambiguous and qualifiedUsage does real work.",
+      "content": "Derivation of a standardised index from an accumulated series against a fitted reference period. Two entities of the same kind distinguished only by role \u2014 the case where entity references alone would be ambiguous and qualifiedUsage does real work.",
       "snippets": [
         {
           "language": "json",
@@ -184,7 +184,7 @@
     },
     {
       "title": "Model training as a processing step",
-      "description": "Training a predictive model, expressed as an ordinary processing activity. The generated entity is a fitted model rather than a data product, and the fold assignment is an input entity so the spatial cross-validation design is recoverable from the provenance.\nThis is the case the profile is least obviously shaped for, and the reason it is included: if a trained model cannot be expressed as an entity generated by an activity, the profile cannot describe machine learning workflows at all.",
+      "content": "Training a predictive model, expressed as an ordinary processing activity. The generated entity is a fitted model rather than a data product, and the fold assignment is an input entity so the spatial cross-validation design is recoverable from the provenance.\nThis is the case the profile is least obviously shaped for, and the reason it is included: if a trained model cannot be expressed as an entity generated by an activity, the profile cannot describe machine learning workflows at all.",
       "snippets": [
         {
           "language": "json",
@@ -202,13 +202,13 @@
           "language": "ttl",
           "url": "https://nsnarayanam.github.io/bblocks-openscience/build/tests/osc/prov-processing-step/example_7_1.ttl",
           "sizeBytes": 1314,
-          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:train:20260807T070000Z> a prov:Activity ;\n    rdfs:label \"Train drought prediction model with spatial cross-validation\" ;\n    dct:type <https://example.org/ospd/process-types/model-training> ;\n    prov:generated <urn:aganitha:model:drought-classifier>,\n        <urn:aganitha:report:validation-metrics> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:spi> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:partition:district-folds> ;\n            prov:hadRole <https://example.org/ospd/roles/validationPartition> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:drought-classes> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingTarget> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:dataset:drought-classes>,\n        <urn:aganitha:dataset:spi>,\n        <urn:aganitha:partition:district-folds> .\n\n"
+          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:train:20260807T070000Z> a prov:Activity ;\n    rdfs:label \"Train drought prediction model with spatial cross-validation\" ;\n    dct:type <https://example.org/ospd/process-types/model-training> ;\n    prov:generated <urn:aganitha:model:drought-classifier>,\n        <urn:aganitha:report:validation-metrics> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:drought-classes> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingTarget> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:spi> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:partition:district-folds> ;\n            prov:hadRole <https://example.org/ospd/roles/validationPartition> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:dataset:drought-classes>,\n        <urn:aganitha:dataset:spi>,\n        <urn:aganitha:partition:district-folds> .\n\n"
         }
       ]
     },
     {
       "title": "Inference using a trained model",
-      "description": "Applying a fitted model to produce a projection. The same model entity that was generated by training is here consumed as an input \u2014 the round trip that makes model provenance chainable, and something no purely data-oriented profile has to handle.",
+      "content": "Applying a fitted model to produce a projection. The same model entity that was generated by training is here consumed as an input \u2014 the round trip that makes model provenance chainable, and something no purely data-oriented profile has to handle.",
       "snippets": [
         {
           "language": "json",
@@ -226,13 +226,13 @@
           "language": "ttl",
           "url": "https://nsnarayanam.github.io/bblocks-openscience/build/tests/osc/prov-processing-step/example_8_1.ttl",
           "sizeBytes": 828,
-          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:project:20260807T071500Z> a prov:Activity ;\n    rdfs:label \"Generate forward drought projection\" ;\n    dct:type <https://example.org/ospd/process-types/model-inference> ;\n    prov:generated <urn:aganitha:dataset:drought-projection> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:model:drought-classifier> ;\n            prov:hadRole <https://example.org/ospd/roles/fittedModel> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/inferenceInput> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:model:drought-classifier> .\n\n"
+          "code": "@prefix dct: <http://purl.org/dc/terms/> .\n@prefix prov: <http://www.w3.org/ns/prov#> .\n@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .\n\n<urn:aganitha:step:project:20260807T071500Z> a prov:Activity ;\n    rdfs:label \"Generate forward drought projection\" ;\n    dct:type <https://example.org/ospd/process-types/model-inference> ;\n    prov:generated <urn:aganitha:dataset:drought-projection> ;\n    prov:qualifiedUsage [ a prov:Usage ;\n            prov:entity <urn:aganitha:dataset:cdsi> ;\n            prov:hadRole <https://example.org/ospd/roles/inferenceInput> ],\n        [ a prov:Usage ;\n            prov:entity <urn:aganitha:model:drought-classifier> ;\n            prov:hadRole <https://example.org/ospd/roles/fittedModel> ] ;\n    prov:used <urn:aganitha:dataset:cdsi>,\n        <urn:aganitha:model:drought-classifier> .\n\n"
         }
       ]
     },
     {
       "title": "Minimal conforming step",
-      "description": "The smallest document that satisfies this profile.",
+      "content": "The smallest document that satisfies this profile.",
       "snippets": [
         {
           "language": "json",
