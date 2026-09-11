@@ -8,10 +8,10 @@
     prov:generated <urn:aganitha:model:drought-classifier>,
         <urn:aganitha:report:validation-metrics> ;
     prov:qualifiedUsage [ a prov:Usage ;
-            prov:entity <urn:aganitha:dataset:spi> ;
+            prov:entity <urn:aganitha:dataset:cdsi> ;
             prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],
         [ a prov:Usage ;
-            prov:entity <urn:aganitha:dataset:cdsi> ;
+            prov:entity <urn:aganitha:dataset:spi> ;
             prov:hadRole <https://example.org/ospd/roles/trainingFeatures> ],
         [ a prov:Usage ;
             prov:entity <urn:aganitha:partition:district-folds> ;

@@ -44,12 +44,6 @@ Ontology describing the Common Workflow Language (CWL) model
 
 A profile of the PROV-O building block constrained to the description of a single geospatial processing step, with a required link to a registered process type.
 
-### `ogc.osc.api-profiles.processes.ipt.results` — Result schema for IPT
-
-**Type:** schema
-
-constraint on results to include provenance object inline
-
 ### `ogc.osc.api-profiles.processes.sample-implementation.schemas.inputDescriptions` — Example OGC API Processes instance input descriptions
 
 **Type:** schema
@@ -73,6 +67,12 @@ Collection of output descriptions
 **Type:** schema
 
 Earth Observation Application Package. 
+
+### `ogc.osc.api-profiles.processes.ipt.results` — Result schema for IPT
+
+**Type:** schema
+
+constraint on results to include provenance object inline
 
 ### `ogc.osc.ontology.openscience` — Open Science Ontology
 

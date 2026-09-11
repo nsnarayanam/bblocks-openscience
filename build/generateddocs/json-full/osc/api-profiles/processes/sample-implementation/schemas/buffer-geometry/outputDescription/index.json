@@ -18,8 +18,8 @@
   ],
   "shaclShapes": {},
   "dependsOn": [
-    "ogc.api.processes.v1.schemas.outputDescription",
-    "ogc.osc.api-profiles.processes.sample-implementation.schemas.buffer-geometry.outputSchema"
+    "ogc.osc.api-profiles.processes.sample-implementation.schemas.buffer-geometry.outputSchema",
+    "ogc.api.processes.v1.schemas.outputDescription"
   ],
   "schema": {
     "application/yaml": "https://nsnarayanam.github.io/bblocks-openscience/build/annotated/osc/api-profiles/processes/sample-implementation/schemas/buffer-geometry/outputDescription/schema.yaml",
