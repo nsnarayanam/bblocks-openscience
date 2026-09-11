@@ -4,5 +4,3 @@ build-local/
 .volumes
 *.bak
 .DS_Store
-build/
-.DS_Store
